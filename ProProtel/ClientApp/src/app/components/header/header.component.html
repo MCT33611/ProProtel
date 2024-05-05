@@ -1,0 +1,31 @@
+<div class="w-full h-16 bg-white flex justify-between items-center px-4 absolute z-10 text-nowrap mb-8">
+  <span class="font-bold text-xl">PRO PORTEL</span>
+  <div class="flex space-x-4">
+    <a href="#" class="text-gray-700 hover:text-gray-500 font-medium px-3 py-2">Services</a>
+    <a href="#" class="text-gray-700 hover:text-gray-500 font-medium px-3 py-2">Contact</a>
+
+
+    @if(!profile.isLoggedIn()){
+    <span class=" py-2 px-3">
+      <a routerLink="/register" class="text-gray-700 hover:text-gray-500 font-medium">Sign up</a>
+      /
+      <a routerLink="/login" class="text-gray-700 hover:text-gray-500 font-medium ">Log in</a>
+    </span>
+
+    }
+    @else{
+    <div class="flex justify-center items-center" (click)="router.navigate(['/profile'])">
+      <div class="flex items-center bg-[#382F32] p-1 px-2 rounded-full shadow-md gap-2 overflow-ellipsis">
+        <img *ngIf="user?.profilePicture " [src]="user.profilePicture" [alt]="'profile picture'"
+          class="rounded-full w-7">
+        <img *ngIf="!user?.profilePicture "
+          src="https://cdn1.vectorstock.com/i/1000x1000/78/40/user-flat-rounded-square-icon-with-long-shadow-vector-7687840.jpg"
+          [alt]="'profile picture'" class="rounded-full w-7">
+        <p *ngIf=" user?.firstName" class="text-sm text-center  font-thin text-white " style="margin-bottom:0px;">
+          {{user.firstName}}</p>
+      </div>
+    </div>
+    }
+
+  </div>
+</div>

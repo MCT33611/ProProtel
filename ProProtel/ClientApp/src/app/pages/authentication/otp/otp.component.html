@@ -1,0 +1,62 @@
+<div class="w-full h-screen flex items-center justify-center">
+    <div class="flex items-center justify-center">
+        <div class="otp-verification">
+            <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+                <div class="otp-inputs flex flex-col space-y-16 mb-6">
+                    <div class="flex flex-row items-center justify-between mx-auto w-full max-w-xs gap-3">
+                        <div class="w-16 h-16 ">
+                            <input formControlName="otp1" type="text" maxlength="1" (keyup)="onInputChange($event, 0)" 
+                                #otpInput class="otp-input"
+                                class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border-2 border-violet-700-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700" />
+                        </div>
+                        <div class="w-16 h-16 ">
+                            <input formControlName="otp2" type="text" maxlength="1" (keyup)="onInputChange($event, 1)" 
+                                #otpInput class="otp-input"
+                                class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border-2 border-violet-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700" />
+                        </div>
+                        <div class="w-16 h-16 ">
+                            <input formControlName="otp3" type="text" maxlength="1" (keyup)="onInputChange($event, 2)" 
+                                #otpInput class="otp-input"
+                                class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border-2 border-violet-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700" />
+                        </div>
+                        <div class="w-16 h-16 ">
+                            <input formControlName="otp4" type="text" maxlength="1" (keyup)="onInputChange($event, 3)" 
+                                #otpInput class="otp-input"
+                                class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border-2 border-violet-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+                @if(containsCharacters(otpForm.value.otp4)){
+                    <span  class="text-red-600 font-normal">
+                        OTP must not contain characters
+                    </span>
+                }
+                @if(isInValid){
+                    <span  class="text-red-600 font-normal">
+                        OTP is not valid
+                    </span>
+                }
+                <div class="flex justify-between">
+                    <button type="submit" [disabled]="!otpForm.valid"
+                        class="btn overflow-hidden relative w-30 bg-blue-500 text-white py-4 px-4 rounded-xl font-bold uppercase -- before:block before:absolute before:h-full before:w-1/2 before:rounded-full before:bg-violet-400 before:top-0 before:left-1/4 before:transition-transform before:opacity-0 before:hover:opacity-100 hover:text-violet-200 hover:before:animate-ping transition-all duration-300">
+                        <span class="relative">verify</span>
+                    </button>
+                    <div class="flex flex-col">
+                        @if(isCountdownActive){
+                            <p  class="countdown-timer">
+                                Resend OTP in {{ countdown }} seconds
+                            </p>
+                        }
+                        
+                        <a href="#" (click)="resendOTP()" [class.disabled]="!canResendOTP">Resend OTP</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

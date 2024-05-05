@@ -1,0 +1,68 @@
+<div class=" h-screen flex flex-col  justify-start items-start text-nowra p">
+    <img src="../../../../assets/images/profile/header setting.png" alt="" class="w-full">
+    <div class="w-full flex md:flex-row flex-col justify-between">
+
+        <div
+            class="sidebar h-full relative top-0 bottom-0 lg:left-0 p-2 md:w-[300px] w-full overflow-y-auto text-center bg-gray-900">
+            <div class="w-full flex justify-center p-2">
+                <div class="rounded-full bg-green-400 w-[50%] flex justify-center p-2">
+                    <label for="profilePicture">
+
+                        <img *ngIf="user?.profilePicture" [src]="user.profilePicture" alt="Profile"
+                            class="rounded-full w-full h-full object-cover">
+
+                        <img *ngIf="!user?.profilePicture"
+                            src="https://cdn1.vectorstock.com/i/1000x1000/78/40/user-flat-rounded-square-icon-with-long-shadow-vector-7687840.jpg"
+                            alt="Profile" class="rounded-full w-full h-full object-cover">
+
+                    </label>
+                </div>
+
+                <input type="file" accept="image/*" hidden name="" id="profilePicture"
+                    (change)="onFileSelected($event)">
+            </div>
+
+
+            <div (click)="this.router.navigate(['/profile/editprofile']);"
+                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                <i class="bi bi-person-lines-fill"></i>
+                <span class="text-[15px] ml-4 text-gray-200 font-bold">Profile</span>
+            </div>
+            <div
+                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                <i class="bi bi-app-indicator"></i>
+                <span class="text-[15px] ml-4 text-gray-200 font-bold">Notifications</span>
+            </div>
+            <div (click)="this.router.navigate(['/profile/plan-list']);"
+                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                <svg class="w-[8%]" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path fill="#FFD43B"
+                        d="M309 106c11.4-7 19-19.7 19-34c0-22.1-17.9-40-40-40s-40 17.9-40 40c0 14.4 7.6 27 19 34L209.7 220.6c-9.1 18.2-32.7 23.4-48.6 10.7L72 160c5-6.7 8-15 8-24c0-22.1-17.9-40-40-40S0 113.9 0 136s17.9 40 40 40c.2 0 .5 0 .7 0L86.4 427.4c5.5 30.4 32 52.6 63 52.6H426.6c30.9 0 57.4-22.1 63-52.6L535.3 176c.2 0 .5 0 .7 0c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40c0 9 3 17.3 8 24l-89.1 71.3c-15.9 12.7-39.5 7.5-48.6-10.7L309 106z" />
+                </svg>
+                <span class="text-[15px] ml-4 text-gray-200 font-bold">Plans</span>
+            </div>
+            <div (click)="this.router.navigate(['/profile/security'], { queryParams: { email:user.email} });"
+                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                <i class="bi bi-fingerprint"></i>
+                <span class="text-[15px] ml-4 text-gray-200 font-bold">Password & Security</span>
+            </div>
+            <div class="w-full mb-4 absolute bottom-0">
+                <div class="my-4 bg-gray-600 h-[1px]"></div>
+
+                <div (click)="logout()"
+                    class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="w-full ">
+
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+</div>

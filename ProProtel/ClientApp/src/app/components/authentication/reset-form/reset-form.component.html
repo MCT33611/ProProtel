@@ -1,0 +1,45 @@
+<form [formGroup]="resetForm" class="login-form" (submit)="onPasswordSubmit()">
+    <div class="mb-4">
+        <label for="password" class="text-gray-700 block mb-2">Password</label>
+        <input formControlName="password" type="password" id="password"
+            class="w-full px-4 py-2 rounded-lg border focus:border-blue-500 focus:outline-none"
+            [class.border-red-500]="resetForm.get('password')?.invalid && resetForm.get('password')?.touched">
+            @if(resetForm.get('password')?.invalid && resetForm.get('password')?.touched)
+            {
+                @if(resetForm.get('password')?.hasError('required')){
+                    
+                    <p class="text-red-500 text-thin">Password is required</p>
+                }
+                @if(resetForm.get('password')?.hasError('weakPassword')){
+                    
+                    <p class="text-red-500 text-thin">your password is too week</p>
+                }
+            }
+
+    </div>
+
+    <div class="mb-4">
+        <label for="confirmPassword" class="text-gray-700 block mb-2">Confirm Password</label>
+        <input formControlName="confirmPassword" type="password" id="confirmPassword"
+            class="w-full px-4 py-2 rounded-lg border focus:border-blue-500 focus:outline-none"
+            [class.border-red-500]="resetForm.get('confirmPassword')?.invalid && resetForm.get('confirmPassword')?.touched">
+        @if(resetForm.get('confirmPassword')?.invalid && resetForm.get('confirmPassword')?.touched)
+        {
+            @if(resetForm.get('confirmPassword')?.hasError('required')){
+                
+                <p class="text-red-500 text-thin">Confirm Password is required</p>
+            }
+            @if(resetForm.get('confirmPassword')?.hasError('passwordsDoNotMatch')){
+                
+                <p class="text-red-500 text-thin">Confirm Password is not matching</p>
+            }
+        }
+    </div>
+    
+
+    <button type="submit"
+        class="w-full bg-[#1A826A] text-white font-semibold py-3 rounded-lg hover:bg-green-700 focus:outline-none focus:bg-green-700 transition duration-300">
+        save
+    </button>
+
+</form>

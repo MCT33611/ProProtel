@@ -1,0 +1,34 @@
+<section id="Security">
+    <div class="w-full py-32 flex-col">
+        <div class="flex justify-start">
+            <div class="w-1/2 flex justify-center items-center">
+                <app-reset-form [email]="email!"  [hidden]="!isEmailValid"></app-reset-form>
+            </div>
+            <div class="w-1/3 flex flex-col justify-start items-start">
+                <button type="button" (click)="delete()"
+                    class="w-full bg-[#ff3a3a] text-white font-semibold py-3 rounded-lg hover:bg-[#ff6c6c] focus:outline-none focus:bg-[#ff6c6c] transition duration-300">
+                    Delete Account
+                </button>
+                <p class="text-[#ff3a3a] font-thin"> this action can't undo </p>
+
+            </div>
+        </div>
+        <div id="alerts" class="px-32 py-16 ">
+            @for (item of [1,2,3,4,5]; track $index) {
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative m-2" role="alert">
+                <strong class="font-bold">Someone logined!</strong>
+                <span class="block sm:inline"> with same account</span>
+                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20">
+                        <title>Close</title>
+                        <path
+                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                    </svg>
+                </span>
+            </div>
+            }
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,76 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="bg-white rounded-lg shadow-md px-8 pb-8">
+    <div class="flex justify-between border-b border-gray-200 pb-4">
+      <h1 class="text-xl font-bold">Edit Profile</h1>
+      <p class="text-gray-500">Last update August 1</p>
+    </div>
+    <form [formGroup]="profileForm" (submit)="onSubmit()">
+      <div class="mt-6 grid grid-cols-1 gap-6">
+        <div class="flex gap-2">
+          <div class="w-full">
+            <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+            <input type="text" id="firstName" formControlName="firstName"
+              class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm"
+              [class.border-red-500]="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched">
+            @if(profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched)
+            {
+            @if(profileForm.get('firstName')?.hasError('required')){
+
+            <p class="text-red-500 text-thin">first name is required</p>
+            }
+
+            }
+          </div>
+
+          <div class="w-full">
+            <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+            <input type="text" id="lastName" formControlName="lastName"
+              class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm">
+          </div>
+        </div>
+
+
+        <div class="border-t border-gray-200 pt-4">
+          <h2 class="text-base font-medium text-gray-700">Contact</h2>
+
+          <div class="mt-6 grid grid-cols-1 gap-6">
+            <div class="flex gap-2">
+              <div class="w-full">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input  type="email" id="email" disabled [value]="user.email"
+                  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm"
+                  [class.border-red-500]="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+
+              </div>
+
+
+              <div class="w-full">
+                <label for="state" class="block text-sm font-medium text-gray-700">State</label>
+                <input type="text" id="state" formControlName="state"
+                  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm">
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <div class="w-full">
+                <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                <input type="text" id="city" formControlName="city"
+                  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm">
+              </div>
+
+              <div class="w-full">
+                <label for="postalCode" class="block text-sm font-medium text-gray-700">Zip Code</label>
+                <input type="text" id="postalCode" formControlName="postalCode"
+                  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm">
+              </div>
+            </div>
+            <button type="submit" [disabled]="!profileForm.valid"
+              class="w-min py-3 px-6  bg-[#1A826A] text-white font-semibold rounded-lg hover:bg-green-700 focus:outline-none focus:bg-green-700 transition duration-300">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+@ProProtel_HostAddress = http://localhost:5053
+
+GET {{ProProtel_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
