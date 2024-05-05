@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ResetFormComponent } from '../../../components/authentication/reset-form/reset-form.component';
 import { EditProfileComponent } from '../../../components/user-section-children/edit-profile/edit-profile.component';
 import { SecurityComponent } from '../../../components/user-section-children/security/security.component';
+import { ProfilePictureComponent } from '../../../components/user-section-children/profile-picture/profile-picture.component';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,8 @@ import { SecurityComponent } from '../../../components/user-section-children/sec
     CommonModule,
     EditProfileComponent,
     SecurityComponent,
-    RouterOutlet
+    RouterOutlet,
+    ProfilePictureComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -34,24 +36,24 @@ export class ProfileComponent {
 
   }
 
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.profile.uploadProfilePicture( file).subscribe(
-        () => {
-          this.toastr.success("pocture updated");
-          this.profile.get().subscribe({
-            next: (res: User) => {
-              this.user = res
-            }
-          });
-        },
-        (err) => {
-          this.toastr.error(err.error,err.status)
-        }
-      );
-    }
-  }
+  // onFileSelected(event: any) {
+  //   const file: File = event.target.files[0];
+  //   if (file) {
+  //     this.profile.uploadProfilePicture( file).subscribe(
+  //       () => {
+  //         this.toastr.success("pocture updated");
+  //         this.profile.get().subscribe({
+  //           next: (res: User) => {
+  //             this.user = res
+  //           }
+  //         });
+  //       },
+  //       (err) => {
+  //         this.toastr.error(err.error,err.status)
+  //       }
+  //     );
+  //   }
+  // }
 
   logout() {
     this.profile.logout();

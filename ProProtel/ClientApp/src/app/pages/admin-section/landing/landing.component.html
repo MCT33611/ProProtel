@@ -1,0 +1,82 @@
+<mat-drawer-container class="landing-container" autosize>
+  <mat-toolbar color="secodery">
+    <mat-toolbar-row>
+      <span [hidden]="isSideNavOpen">PROPORTEL</span>
+      <span class="landing-spacer"></span>
+      <div class="flex items-center bg-[#382F32] p-1 px-2 rounded-full shadow-md gap-2 overflow-ellipsis">
+        <img
+          src="https://cdn1.vectorstock.com/i/1000x1000/78/40/user-flat-rounded-square-icon-with-long-shadow-vector-7687840.jpg"
+          [alt]="'profile picture'" class="rounded-full w-7">
+        <p class="text-sm text-center  font-thin text-white " style="margin-bottom:0px;">
+          Admin</p>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-drawer #drawer class="landing-sidenav" mode="side">
+    <div class="w-full flex justify-center  border-white border-b">
+      <span class="text-2xl text-white font-bold  py-2">PROPORTEL</span>
+
+
+    </div>
+    <div class="w-full h-[3%]"></div>
+
+    <app-profile-picture></app-profile-picture>
+
+    <div class="w-full h-[10%]"></div>
+    <div (click)="this.router.navigate(['/profile']);"
+      class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 bg-gray-800 text-white">
+      <i class="bi bi-graph-up-arrow font-bold"></i>
+      <span class="text-[15px] ml-4 text-gray-200 font-bold">Dashbord</span>
+    </div>
+
+    <div (click)="this.router.navigate(['/profile']);"
+      class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 bg-gray-800 text-white">
+      <i class="bi bi-person-lines-fill"></i>
+      <span class="text-[15px] ml-4 text-gray-200 font-bold">Profile</span>
+    </div>
+
+    <div (click)="this.router.navigate(['/profile']);" [matMenuTriggerFor]="menu"
+      class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 bg-gray-800 text-white">
+      <i class="bi bi-people"></i>
+      <span class="text-[15px] ml-4 text-gray-200 font-bold">Users Management</span>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon><i class="bi bi-people"></i></mat-icon>
+          <span>Customers</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon><i class="bi bi-people-fill"></i></mat-icon>
+          <span>Workers</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <div (click)="this.router.navigate(['/profile']);"
+      class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 bg-gray-800 text-white">
+      <i class="fa-solid fa-gears" style="color: #ffffff;"></i>
+      <span class="text-[15px] ml-4 text-gray-200 font-bold">Services</span>
+    </div>
+    <div class="w-full mb-4 absolute bottom-0">
+      <div class="my-4 bg-gray-600 h-[1px]"></div>
+
+      <div (click)="logout()"
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-green-400 bg-gray-800 text-white">
+
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
+      </div>
+  </div>
+  </mat-drawer>
+
+  <div class="landing-sidenav-content">
+    <i class="bi bi-chevron-compact-right " (click)="drawer.toggle();isSideNavOpen = !isSideNavOpen"
+      [hidden]="isSideNavOpen"></i>
+    <i class="bi bi-grip-vertical" (click)="drawer.toggle();isSideNavOpen = !isSideNavOpen"
+      [hidden]="!isSideNavOpen"></i>
+    <div class="w-full">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+</mat-drawer-container>

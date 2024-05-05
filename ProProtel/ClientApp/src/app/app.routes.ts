@@ -9,13 +9,12 @@ import { PlanListComponent } from './components/user-section-children/plan-list/
 
 export const routes: Routes = [
     {
-        path:"",component:HomeComponent,title:"proportel",canActivate:[authCustomerGuard]
+        path:"",component:HomeComponent,title:"proportel",
     },
     {
         path:"register",
         loadComponent:()=>import ("./pages/authentication/register/register.component").then((M)=>M.RegisterComponent),
         title:"proportel registration",
-        canActivate:[priventAuthReturnGuard]
 
     },
     {
@@ -27,7 +26,6 @@ export const routes: Routes = [
         path:"login",
         loadComponent:()=>import ("./pages/authentication/login/login.component").then((M)=>M.LoginComponent),
         title:"proportel login",
-        canActivate:[priventAuthReturnGuard]
     },
     {
         path:"forgot-password",
@@ -39,9 +37,8 @@ export const routes: Routes = [
         path:"profile",
         component:ProfileComponent,
         title:"profile",
-        canActivate:[authCustomerGuard],
         children: [
-            { path: '', redirectTo: 'editprofile', pathMatch: 'full' }, 
+            { path: '**', redirectTo: 'editprofile', pathMatch: 'full' }, 
             { path: 'security', component: SecurityComponent },
             { path: 'editprofile', component: EditProfileComponent },
             { path: 'plan-list', component: PlanListComponent },

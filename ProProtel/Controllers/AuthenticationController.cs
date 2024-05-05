@@ -63,6 +63,7 @@ namespace ProPortel.Controllers
                     LastName = model.LastName,
                     Email = model.Email,
                     UserName = model.Email,
+                    IsActive = true
 
                 };
                 var result = await _userManager.CreateAsync(user, model.Password!);
@@ -228,6 +229,8 @@ namespace ProPortel.Controllers
             }
 
         }
+
+
 
         [HttpPost("ForgotPassword/{Email}")]
         public async Task<IActionResult> ForgotPassword(string Email)

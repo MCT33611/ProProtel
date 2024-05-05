@@ -26,6 +26,9 @@ namespace ProPortel.Models
         public string? Bio { get; set; }
 
         public bool IsBlocked { get; set; }
+        public bool IsActive{ get; set; }
+        public bool IsAproved{ get; set; }
+
 
     }
 }

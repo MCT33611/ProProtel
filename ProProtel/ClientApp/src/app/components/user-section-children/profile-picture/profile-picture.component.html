@@ -1,0 +1,17 @@
+<div class="w-full flex justify-center p-2">
+    <div class="rounded-full bg-green-400 w-[50%] flex justify-center p-2">
+        <label for="profilePicture">
+
+            <img *ngIf="user?.profilePicture" [src]="user.profilePicture" alt="Profile"
+                class="rounded-full w-full h-full object-cover">
+
+            <img *ngIf="!user?.profilePicture"
+                src="https://cdn1.vectorstock.com/i/1000x1000/78/40/user-flat-rounded-square-icon-with-long-shadow-vector-7687840.jpg"
+                alt="Profile" class="rounded-full w-full h-full object-cover">
+
+        </label>
+    </div>
+
+    <input type="file" accept="image/*" hidden name="" id="profilePicture"
+        (change)="onFileSelected($event)">
+</div>

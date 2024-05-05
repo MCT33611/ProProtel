@@ -14,6 +14,7 @@ namespace ProPortel.Controllers
     [Authorize(Roles = SD.Role_Customer)]
     public class ProfileController(
         UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser > _signInManager,
         ICloudinaryService cloudinaryService,
         IUnitOfWork unitOfWork
             ) : ControllerBase
@@ -22,6 +23,20 @@ namespace ProPortel.Controllers
         private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly ICloudinaryService _cloudinaryService = cloudinaryService;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
+
+        [HttpPost("Logout")]
+        public IActionResult Logout(string id)
+        {
+            var user =  _userManager.FindByIdAsync(id).GetAwaiter().GetResult();
+            if (user == null)
+            {
+                return NotFound($"User with ID '{id}' not found.");
+            }
+            _signInManager.SignOutAsync();
+            user.IsActive = false;
+            _unitOfWork.user.Update(user);
+            return Ok();
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)

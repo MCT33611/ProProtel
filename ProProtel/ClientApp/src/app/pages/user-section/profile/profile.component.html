@@ -4,7 +4,7 @@
 
         <div
             class="sidebar h-full relative top-0 bottom-0 lg:left-0 p-2 md:w-[300px] w-full overflow-y-auto text-center bg-gray-900">
-            <div class="w-full flex justify-center p-2">
+            <!-- <div class="w-full flex justify-center p-2">
                 <div class="rounded-full bg-green-400 w-[50%] flex justify-center p-2">
                     <label for="profilePicture">
 
@@ -20,8 +20,8 @@
 
                 <input type="file" accept="image/*" hidden name="" id="profilePicture"
                     (change)="onFileSelected($event)">
-            </div>
-
+            </div> -->
+            <app-profile-picture></app-profile-picture>
 
             <div (click)="this.router.navigate(['/profile/editprofile']);"
                 class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
