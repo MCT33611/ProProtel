@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, catchError, tap } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user';
@@ -49,13 +49,21 @@ export class ProfileService {
     return this.http.get(environment.API_BASE_URL + `/Profile/plans`, { headers:this.headers })
   }
 
-  Subscribe(subscription : {
+  Subscribe(subscription: {
     paymentId: string,
     status: string,
     workerId: string,
     planId: number
-  }){
-    return this.http.post(environment.API_BASE_URL + `/Worker/Subscribe`, subscription ,{ headers :this.headers})
+  }): Observable<any> {
+    return this.http.post<any>(environment.API_BASE_URL + `/Worker/Subscribe`, subscription, { headers: this.headers }).pipe(
+      tap((res: { token: string }) => { 
+        this.auth.setToken(res.token);
+      }),
+      catchError(error => {
+        console.error(error);
+        throw error;
+      })
+    );
   }
 
 

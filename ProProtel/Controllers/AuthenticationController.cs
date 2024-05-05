@@ -57,7 +57,7 @@ namespace ProPortel.Controllers
                     return Conflict($"Email '{model.Email}' already exists in the database.");
                 }
 
-                ApplicationUser user = new()
+                ApplicationUser? user = new()
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -72,6 +72,17 @@ namespace ProPortel.Controllers
                     return BadRequest($"Failed to create user: {errors}");
                 }
 
+                user = await _userManager.FindByEmailAsync(model.Email!);
+                if (user == null)
+                {
+                    return BadRequest("Failed to create user");
+                }
+
+                result = await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+                if (!result.Succeeded)
+                {
+                    return BadRequest("Failed to assign role to user");
+                }
                 return Ok();
             }
             catch (Exception ex)
@@ -184,7 +195,8 @@ namespace ProPortel.Controllers
                     FirstName = payload.Name,
                     UserName = payload.Email,
                     ProfilePicture = payload.Picture,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    Role = SD.Role_Customer,
                 };
                 ApplicationUser getUser = _unitOfWork.user.Get(u => u.Email == user.Email);
                 if (getUser != null)
@@ -202,6 +214,11 @@ namespace ProPortel.Controllers
                 if (user.IsBlocked)
                 {
                     return Unauthorized("User is Blocked for some reason");
+                }
+                result = await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+                if (!result.Succeeded)
+                {
+                    return BadRequest("Failed to assign role to user");
                 }
                 return Ok(new { token = _jwtService.GenerateJwtToken(_unitOfWork.user.Get(u => u.Email == user.Email)) });
             }

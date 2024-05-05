@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using ProPortel.Models;
 using ProPortel.Models.VModels;
 using ProPortel.Repositories.IRepositories;
@@ -11,7 +12,7 @@ namespace ProPortel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkerController(IUnitOfWork unitOfWork, IConfiguration confing) : ControllerBase
+    public class WorkerController(IUnitOfWork unitOfWork,UserManager<ApplicationUser> _userManager, IConfiguration confing, IJWTService _jwtService) : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IConfiguration _confing = confing;
@@ -85,7 +86,12 @@ namespace ProPortel.Controllers
                     _unitOfWork.subscription.Add(subscription);
                     _unitOfWork.user.ChangeUserRole(model.WorkerId!,SD.Role_Worker);
                     _unitOfWork.Save();
-                    return Ok();
+                    ApplicationUser? user = _userManager.FindByIdAsync(model.WorkerId!).GetAwaiter().GetResult();
+                    if (user == null)
+                    {
+                        return BadRequest("Failed to create user");
+                    }
+                    return Ok(new { token = _jwtService.GenerateJwtToken(user) });
                 }
                 return BadRequest(ModelState);
                        

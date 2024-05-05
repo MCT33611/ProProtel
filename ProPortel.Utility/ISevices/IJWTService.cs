@@ -9,7 +9,8 @@ namespace ProPortel.Utility
 {
     public interface IJWTService
     {
-        public string GenerateJwtToken(ApplicationUser user);
-        public string GenerateTokenForAdmin(string username);
+        string GenerateJwtToken(ApplicationUser user);
+        string GenerateJwtTokenForWorker(ApplicationUser user);
+        string GenerateTokenForAdmin(ApplicationUser user);
     }
 }
